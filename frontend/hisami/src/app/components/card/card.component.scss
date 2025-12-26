@@ -1,0 +1,71 @@
+.min-w-250 {
+  min-width: 250px;
+}
+
+.card-background-color {
+  background-color: var(--primary-color-dark);
+}
+
+.truncate {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Celulares (até ~576px) */
+@media (max-width: 576px) {
+  /* Card vira coluna e ganha respiro */
+  .background-primary-color.d-flex.flex-row {
+    flex-direction: column !important;
+    gap: 12px;
+    padding: 12px !important;
+    height: auto !important; /* não força o [style.height.px] no mobile */
+  }
+
+  .justify-content-start {
+    align-items: start;
+  }
+
+  /* Imagem ocupa toda a largura e fica com altura fixa */
+  img.h-100 {
+    width: 100%;
+    height: 160px !important;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  /* Bloco direito ocupa 100% e remove margem lateral */
+  .min-w-250 {
+    min-width: 0 !important;
+    width: 100%;
+  }
+
+  .ms-4 {
+    margin-left: 0 !important;
+  }
+
+  /* Texto: permite quebrar linha no mobile (em vez de ficar 1 linha só) */
+  .truncate {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+
+    /* opcional: limitar a 2 linhas (melhor UX em celular) */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+  }
+
+  /* Preço alinhado à esquerda em telas pequenas */
+  justify-content-end {
+    justify-content: flex-start !important;
+  }
+
+  /* Ajuste de tipografia */
+  h2 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
