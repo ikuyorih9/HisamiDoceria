@@ -1,0 +1,79 @@
+@font-face {
+  font-family: "KumbhSans";
+  src: url("/fonts/KumbhSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "KumbhSans", sans-serif;
+}
+
+.background {
+  background-color: #f5e5e6;
+  background-image: url("/images/background-white.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-content-start {
+  justify-content: flex-start;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.py-2 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-20 {
+  height: 3vh;
+}
+h2 {
+  color: #80916c;
+}
+
+.button {
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  background-color: #80916c;
+  color: white;
+  font-weight: 500;
+}
