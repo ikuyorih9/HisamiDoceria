@@ -1,8 +1,12 @@
 package com.hisami.hisami.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,10 +22,14 @@ public class Employee {
     @Column(name = "salary")
     private Double salary;
 
-    public Employee(){
+    @OneToMany(mappedBy = "employee", orphanRemoval = true)
+    private Set<HasAccount> accounts = new HashSet<>();
+
+    public Employee() {
         super();
     }
-    public Employee(String cpf, String name, Double salary){
+
+    public Employee(String cpf, String name, Double salary) {
         super();
         this.cpf = cpf;
         this.name = name;
@@ -31,20 +39,36 @@ public class Employee {
     public String getCpf() {
         return cpf;
     }
+
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public Double getSalary() {
         return salary;
     }
+
     public void setSalary(Double salary) {
         this.salary = salary;
     }
-}
 
+    public Set<HasAccount> getAccounts() {
+        return accounts;
+    }
+
+    public void addAccount(HasAccount account) {
+        this.accounts.add(account);
+    }
+
+    public void setAccounts(Set<HasAccount> accounts) {
+        this.accounts = accounts;
+    }
+}
