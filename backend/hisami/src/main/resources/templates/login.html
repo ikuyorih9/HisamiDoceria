@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/styles/styles.css}" />
+  </head>
+  <body
+    class="background flex flex-column justify-content-center align-items-center"
+  >
+    <img
+      th:src="@{/images/logo.png}"
+      alt="Logo Hisami Doceria"
+      class="logo py-2"
+    />
+    <h2>Acesse sua conta</h2>
+    <form
+      id="loginForm"
+      th:action="@{/login}"
+      method="post"
+      class="w-full h-full flex flex-column align-items-center"
+    >
+      <div class="flex flex-column align-items-center w-full">
+        <div class="flex flex-column py-2">
+          <label for="username">Usuário</label>
+          <input type="text" id="username" required class="w-full h-20" />
+        </div>
+        <div class="flex flex-column py-2">
+          <label for="password">Senha</label>
+          <input type="password" id="password" class="w-full h-20" required />
+        </div>
+      </div>
+      <div class="flex justify-content-center py-2">
+        <button class="button" type="submit">Entrar</button>
+      </div>
+    </form>
+  </body>
+</html>
