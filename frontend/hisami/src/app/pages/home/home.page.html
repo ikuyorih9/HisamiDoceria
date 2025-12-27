@@ -1,0 +1,32 @@
+<div
+  class="d-flex flex-column justify-content-center align-items-center gap-4 w-100 h-100 py-4 px-2 text-center"
+>
+  <div class="px-3 py-2 rounded-10 background-primary-color">
+    <h1>Bem vindo(a) à Hisami Doceria!</h1>
+  </div>
+  <div class="font-bold p-1 rounded-10 background-text-color">
+    <span class="font-24 text-primary-color">Confira algumas delícias do cardápio de hoje!</span>
+  </div>
+  <p-carousel
+    #car
+    [value]="products"
+    [numVisible]="1"
+    [numScroll]="1"
+    [circular]="true"
+    [showNavigators]="false"
+    class="w-100"
+  >
+    <ng-template let-product #item>
+      <div (click)="next()" style="cursor: pointer">
+        <app-card
+          [image]="product.image"
+          [title]="product.name"
+          [description]="product.description"
+          [price]="product.price"
+          [unity]="'R$/un'"
+          [height]="250"
+        ></app-card>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
