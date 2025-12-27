@@ -3,6 +3,7 @@ package com.hisami.hisami.config;
 import java.util.Collections;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
         System.out.println("[LOAD USER BY USERNAME] " + account.getUsername() + " " + account.getPassword());
-        return new org.springframework.security.core.userdetails.User(
+        return new User(
                 account.getUsername(),
                 account.getPassword(), // Deve estar criptografada com BCrypt
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
