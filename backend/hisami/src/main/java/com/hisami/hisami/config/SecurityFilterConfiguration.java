@@ -2,6 +2,7 @@ package com.hisami.hisami.config;
 
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -20,6 +21,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityFilterConfiguration {
+        @Value("${app.oauth2.redirect-uri}")
+        private String loginRedirectUri;
+
+        @Value("${app.oauth2.post-logout-redirect-uri}")
+        private String postLogoutRedirectUri;
+
         @Bean
         @Order(2)
         public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
@@ -33,13 +40,14 @@ public class SecurityFilterConfiguration {
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                                 .requestMatchers("/auth/**").permitAll()
-                                                // .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                                                // .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form
                                                 .loginPage("/login") // sua página
                                                 .loginProcessingUrl("/login")
-                                                .defaultSuccessUrl("/", true)
+                                                // .defaultSuccessUrl("/", true)
+                                                .defaultSuccessUrl(this.loginRedirectUri, true)
                                                 .failureUrl("/login?error=true")
                                                 .permitAll())
                                 .httpBasic(httpBasic -> httpBasic.disable()) // <-- importante
@@ -48,22 +56,6 @@ public class SecurityFilterConfiguration {
                 return http.build();
         }
 
-        // @Bean
-        // public UserDetailsService userDetailsService() {
-        // return new CustomUserDetailsService();
-        // }
-        // @Bean
-        // public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder)
-        // {
-        // UserDetails userDetails = User.builder()
-        // .username("user")
-        // .password(passwordEncoder.encode("password"))
-        // .roles("USER")
-        // .build();
-
-        // return new InMemoryUserDetailsManager(userDetails);
-        // }
-
         @Bean
         public RegisteredClientRepository registeredClientRepository(PasswordEncoder passwordEncoder) {
                 RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -71,8 +63,8 @@ public class SecurityFilterConfiguration {
                                 .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
                                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                                .redirectUri("http://localhost:4200")
-                                .postLogoutRedirectUri("http://localhost:4200")
+                                .redirectUri(this.loginRedirectUri)
+                                .postLogoutRedirectUri(this.postLogoutRedirectUri)
                                 .scope(OidcScopes.OPENID)
                                 .scope(OidcScopes.PROFILE)
                                 .clientSettings(ClientSettings.builder().requireProofKey(true).build()) // 🔥 Ativa PKCE

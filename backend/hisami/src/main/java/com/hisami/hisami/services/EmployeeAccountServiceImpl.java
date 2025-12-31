@@ -1,6 +1,8 @@
 package com.hisami.hisami.services;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,22 @@ public class EmployeeAccountServiceImpl implements EmployeeAccountService {
     @Override
     public boolean exists(String username) {
         return this.employeeAccountRepository.findByUsername(username).isPresent();
+    }
+
+    @Override
+    public Optional<EmployeeAccount> find(String id) {
+        return this.employeeAccountRepository.findById(id);
+    }
+
+    @Override
+    public List<EmployeeAccount> list() {
+        return this.employeeAccountRepository.findAll();
+    }
+
+    public EmployeeRole findEmployeeRole(String username) {
+        EmployeeAccount account = this.find(username).orElseThrow(
+                () -> new NotFoundException("Não existe empregado com a conta " + username + " cadastrado."));
+        return account.getRole();
     }
 
 }

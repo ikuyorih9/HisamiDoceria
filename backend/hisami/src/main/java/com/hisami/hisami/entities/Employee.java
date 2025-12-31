@@ -3,6 +3,8 @@ package com.hisami.hisami.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,6 +24,7 @@ public class Employee {
     @Column(name = "salary")
     private Double salary;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "employee", orphanRemoval = true)
     private Set<HasAccount> accounts = new HashSet<>();
 
