@@ -1,0 +1,18 @@
+.w-25 {
+  width: 25% !important;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.justify-items-center {
+  justify-items: center !important;
+}
+
+::ng-deep .qty {
+  width: 30% !important; /* wrapper */
+}
+::ng-deep .qty input {
+  width: 100% !important; /* input ocupa o wrapper */
+}

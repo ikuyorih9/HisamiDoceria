@@ -1,0 +1,11 @@
+:host ::ng-deep .p-button-icon-only.p-button-rounded {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important; /* impede virar oval */
+  padding: 0 !important; /* importantíssimo */
+  border-radius: 50% !important;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

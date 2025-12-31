@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hisami.hisami.dto.ApiResponse;
 import com.hisami.hisami.dto.RawDTO;
 import com.hisami.hisami.dto.RegisteringDTO;
 import com.hisami.hisami.entities.Product;
@@ -38,9 +39,11 @@ public class ApiController {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<String> addProduct(@RequestBody RegisteringDTO registeringDTO) {
+    public ResponseEntity<ApiResponse> addProduct(@RequestBody RegisteringDTO registeringDTO) {
+        System.out.println("REGISTERING DTO: " + registeringDTO);
         this.registerService.registerProduct(registeringDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Produto foi cadastrado com sucesso");
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse(HttpStatus.CREATED.value(), "Produto foi cadastrado com sucesso"));
     }
 
     @GetMapping("/raw")
@@ -49,8 +52,11 @@ public class ApiController {
     }
 
     @PostMapping("/raw")
-    public ResponseEntity<String> createRaw(@RequestBody RawDTO dto) {
+    public ResponseEntity<ApiResponse> createRaw(@RequestBody RawDTO dto) {
         this.rawService.create(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Ingrediente foi cadastrado com sucesso");
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new ApiResponse(HttpStatus.CREATED.value(), "Ingrediente foi cadastrado com sucesso"));
     }
+
 }

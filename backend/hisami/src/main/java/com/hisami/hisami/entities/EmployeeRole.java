@@ -3,12 +3,16 @@ package com.hisami.hisami.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
 @Table(name = "employee_role")
 public class EmployeeRole {
@@ -28,6 +32,7 @@ public class EmployeeRole {
     @Column(name = "can_change_roles", nullable = false)
     private boolean canChangeRoles = false;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role")
     private Set<EmployeeAccount> accounts = new HashSet<>();
 

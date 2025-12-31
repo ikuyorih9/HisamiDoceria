@@ -1,0 +1,17 @@
+<div
+  class="d-flex flex-row py-2 rounded-3 px-2 background-primary-color"
+  [style.height.px]="height"
+>
+  <!-- CARD LEFT -->
+  <img [src]="image" [alt]="'imagem do produto'" class="rounded-10 h-100 p-2 rounded-15" />
+  <!-- CARD RIGHT -->
+  <div
+    class="d-flex flex-column justify-content-center align-items-start gap-3 min-w-250 ms-4 h-100 w-100"
+  >
+    <h2>{{ title }}</h2>
+    <span class="flex flex-fill text-start">{{ description }}</span>
+    <div class="d-flex w-100 justify-content-end align-items-center flex-2">
+      <span>{{ price }} {{ unity }}</span>
+    </div>
+  </div>
+</div>

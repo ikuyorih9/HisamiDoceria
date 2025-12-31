@@ -1,0 +1,129 @@
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" (onHide)="close()">
+  <ng-template #header>
+    <p>Produtos</p>
+  </ng-template>
+  <div class="d-flex flex-column align-items-center gap-3">
+    <p-card *ngFor="let product of products" styleClass="w-100">
+      <ng-template pTemplate="title">
+        <div class="d-flex flex-row justify-content-between">
+          {{ product.name }}
+          <p-button icon="pi pi-trash" [rounded]="true" (click)="close()" class="trash-button" />
+        </div>
+      </ng-template>
+      <div>Custo: {{ product.cust | number: '1.2-2' }} R$</div>
+    </p-card>
+  </div>
+  <ng-template #footer>
+    <p-button
+      icon="pi pi-plus"
+      [text]="true"
+      [rounded]="true"
+      (click)="openAddModal()"
+      class="add-button"
+    />
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isAddVisible"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  (onHide)="closeAddModal()"
+>
+  <ng-template #header>
+    <p>Cadastrar produto</p>
+  </ng-template>
+  <div class="flex w-100 justify-items-center align-items-center overflow-x-hidden">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="p-fluid d-flex flex-column align-items-center justify-content-center gap-3 w-75"
+    >
+      <!-- NAME -->
+      <div class="d-flex flex-column align-items-start w-100">
+        <label for="name">Nome</label>
+        <input id="name" pInputText formControlName="name" class="w-100" />
+        <small class="p-error" *ngIf="isInvalid('name')">
+          Nome é obrigatório (mín. 2 caracteres).
+        </small>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="d-flex flex-column align-items-start w-100">
+        <label for="description">Descrição</label>
+        <textarea
+          id="description"
+          pInputTextarea
+          rows="3"
+          formControlName="description"
+          class="w-100"
+        ></textarea>
+      </div>
+
+      <div class="d-flex flex-column align-items-start w-100">
+        <label for="percentCustPrice">Custo/Preço (%)</label>
+        <p-inputNumber
+          inputId="percentCustPrice"
+          formControlName="percentCustPrice"
+          suffix="%"
+          [min]="0"
+          [max]="100"
+          class="w-100"
+        ></p-inputNumber>
+        <small class="p-error" *ngIf="isInvalid('percentCustPrice')"
+          >Este campo é obrigatório.</small
+        >
+      </div>
+
+      <div class="d-flex flex-column align-items-start w-100">
+        <label for="barcode">Código de barras</label>
+        <input id="barcode" pInputText formControlName="barcode" class="w-100" />
+        <small class="p-error" *ngIf="isInvalid('barcode')">Código de barras é obrigatório.</small>
+      </div>
+
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+      <div class="d-flex flex-column align-items-start w-100">
+        <label for="raws"> Ingredientes</label>
+        <p-multiselect
+          [options]="rawOptions"
+          [optionLabel]="'raw.name'"
+          [maxSelectedLabels]="2"
+          class="w-100"
+          id="raws"
+          formControlName="raws"
+        ></p-multiselect>
+        <small class="p-error" *ngIf="isInvalid('raws')"
+          >É preciso ter ao menos um ingrediente no produto.</small
+        >
+      </div>
+
+      <div
+        *ngFor="let item of selectedRaws; let i = index"
+        class="d-flex flex-row justify-content-between align-items-center py-2 gap-3 w-100"
+        (mousedown)="$event.stopPropagation()"
+        (click)="$event.stopPropagation()"
+      >
+        <p class="m-0">{{ item.raw?.name }}</p>
+        <p-inputNumber
+          styleClass="qty"
+          [min]="1"
+          [ngModel]="item.quantity"
+          [showButtons]="true"
+          (ngModelChange)="updateQuantity(i, $event)"
+        ></p-inputNumber>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #footer>
+    <div class="d-flex justify-content-end pt-3" style="gap: 0.5rem">
+      <button
+        pButton
+        type="submit"
+        (click)="submit()"
+        label="Salvar"
+        [disabled]="form.invalid"
+      ></button></div
+  ></ng-template>
+</p-dialog>

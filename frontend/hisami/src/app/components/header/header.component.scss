@@ -1,0 +1,49 @@
+#logo,
+.menu-button {
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+#logo:hover,
+.menu-button:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+/* Celulares (até ~576px): manter layout, só reduzir tamanhos */
+@media (max-width: 576px) {
+  /* reduz logos sem reorganizar tudo */
+  header img.selo {
+    height: 42px;
+    width: auto;
+  }
+
+  header img.logo {
+    height: 42px;
+    width: auto;
+  }
+
+  /* área dos botões: menos espaçamento */
+  header .d-flex.flex-row.justify-content-end.align-items-center.w-100.gap-3.px-2 {
+    gap: 8px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  /* reduz fonte e padding dos botões do PrimeNG */
+  header p-button .p-button {
+    font-size: 0.85rem; /* diminui a fonte */
+    padding: 0.45rem 0.6rem; /* diminui o botão */
+  }
+
+  header p-button .p-button .p-button-icon {
+    font-size: 0.9rem; /* ícone um pouco menor */
+  }
+
+  /* se o texto ainda quebrar em 2 linhas, força ele a ficar em 1 */
+  header p-button .p-button-label {
+    white-space: nowrap;
+  }
+}
