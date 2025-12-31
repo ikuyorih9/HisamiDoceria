@@ -43,6 +43,8 @@ export class ProductComponent implements OnInit {
   public products: Product[] = [];
   public isAddVisible = false;
 
+  public imageBase64: string | null = null; // sem o prefixo "data:image/..;base64,"
+
   constructor(
     private productService: ProductService,
     private rawService: RawService,
@@ -61,6 +63,7 @@ export class ProductComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.products = await this.refresh();
+    console.log('Products: ', this.products);
     const raws = await this.rawService.getAllRaws();
     this.rawOptions = raws.map((raw) => {
       return {
@@ -113,6 +116,7 @@ export class ProductComponent implements OnInit {
     const product: Product = this.form.getRawValue() as Product;
     product.cust = this.productService.calculateCust(product.raws);
     product.price = this.productService.calculatePrice(product.cust, product.percentCustPrice);
+    product.image = this.imageBase64; // string base64
     const response = await this.productService.productRegistering(product);
     alert(response.text);
     this.refresh();
@@ -137,6 +141,20 @@ export class ProductComponent implements OnInit {
     if (current == null || current < 1) {
       this.updateQuantity(i, 1); // volta para 1 se ficou vazio ou 0
     }
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const full = reader.result as string; // ex: "data:image/png;base64,AAAA..."
+      this.imageBase64 = full.split(',')[1]; // pega só o base64 puro
+    };
+    reader.readAsDataURL(file);
   }
 
   get selectedRaws(): any[] {

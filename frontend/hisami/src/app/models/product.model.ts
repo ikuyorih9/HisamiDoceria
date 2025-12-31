@@ -12,5 +12,6 @@ export interface Product {
   cust: number;
   percentCustPrice: number;
   barcode: string;
+  image: string | null;
   raws: RawQuantity[];
 }

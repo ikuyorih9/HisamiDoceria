@@ -81,6 +81,8 @@
         <small class="p-error" *ngIf="isInvalid('barcode')">Código de barras é obrigatório.</small>
       </div>
 
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+
       <div class="d-flex flex-column align-items-start w-100">
         <label for="raws"> Ingredientes</label>
         <p-multiselect
