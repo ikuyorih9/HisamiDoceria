@@ -1,5 +1,6 @@
 package com.hisami.hisami.services;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +26,18 @@ public class ProductServiceImpl implements ProductService {
                 this.exists(object.getBarcode()))
             throw new EntityAlreadyExistsException("Produto já foi cadastrado.");
 
-        Product product = new Product(object.getName(), object.getDescription(), object.getPrice(), object.getCust(),
-                object.getPercentCustPrice(), object.getBarcode());
+        // Verify whether object has an image
+        if (object.getImage() != null) {
+            System.out.println("Getting base64... " + object.getImage());
+            byte[] bytes = Base64.getDecoder().decode(object.getImage());
+            System.out.println("IMAGE: " + bytes);
+            Product product = new Product(object.getName(), object.getDescription(), object.getPrice(),
+                    object.getCust(), object.getPercentCustPrice(), object.getBarcode(), bytes);
+            return productRepository.save(product);
+        }
+        Product product = new Product(object.getName(), object.getDescription(), object.getPrice(),
+                object.getCust(), object.getPercentCustPrice(), object.getBarcode(), null);
+
         return productRepository.save(product);
     }
 

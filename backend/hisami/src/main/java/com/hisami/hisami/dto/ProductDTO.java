@@ -12,10 +12,11 @@ public class ProductDTO {
     private Double cust;
     private Double percentCustPrice;
     private String barcode;
+    private String image;
     private List<Raw> raws;
 
     public ProductDTO(Long id, String name, String description, Double price, Double cust, Double percentCustPrice,
-            String barcode, List<Raw> raws) {
+            String barcode, String image, List<Raw> raws) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -23,6 +24,7 @@ public class ProductDTO {
         this.cust = cust;
         this.percentCustPrice = percentCustPrice;
         this.barcode = barcode;
+        this.image = image;
         this.raws = raws;
     }
 
@@ -88,5 +90,20 @@ public class ProductDTO {
 
     public void setRaws(List<Raw> raws) {
         this.raws = raws;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDTO [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
+                + ", cust=" + cust + ", percentCustPrice=" + percentCustPrice + ", barcode=" + barcode + ", image="
+                + image + "]";
     }
 }

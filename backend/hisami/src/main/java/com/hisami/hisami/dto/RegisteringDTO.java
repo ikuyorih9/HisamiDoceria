@@ -31,4 +31,9 @@ public class RegisteringDTO {
         this.raws.add(raws);
     }
 
+    @Override
+    public String toString() {
+        return "RegisteringDTO [product=" + product + ", raws=" + raws + "]";
+    }
+
 }

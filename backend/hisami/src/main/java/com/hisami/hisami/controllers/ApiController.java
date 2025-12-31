@@ -40,6 +40,7 @@ public class ApiController {
 
     @PostMapping("/product")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody RegisteringDTO registeringDTO) {
+        System.out.println("REGISTERING DTO: " + registeringDTO);
         this.registerService.registerProduct(registeringDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse(HttpStatus.CREATED.value(), "Produto foi cadastrado com sucesso"));

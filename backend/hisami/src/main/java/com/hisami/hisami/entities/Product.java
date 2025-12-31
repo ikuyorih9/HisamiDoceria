@@ -5,11 +5,14 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -36,6 +39,11 @@ public class Product {
     @Column(name = "barcode", length = 32, nullable = false, unique = true)
     private String barcode;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "image")
+    private byte[] image;
+
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private Set<ProductContainRaw> raws = new HashSet<>();
@@ -44,25 +52,14 @@ public class Product {
     }
 
     public Product(String name, String description, Double price, Double cust, Double percentCustPrice,
-            String barcode) {
+            String barcode, byte[] image) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.cust = cust;
         this.percentCustPrice = percentCustPrice;
         this.barcode = barcode;
-    }
-
-    public Product(Long id, String name, String description, Double price, Double cust, Double percentCustPrice,
-            String barcode, Set<ProductContainRaw> raws) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.cust = cust;
-        this.percentCustPrice = percentCustPrice;
-        this.barcode = barcode;
-        this.raws = raws;
+        this.image = image;
     }
 
     public Long getId() {
@@ -131,5 +128,13 @@ public class Product {
 
     public void addRaw(ProductContainRaw raw) {
         this.raws.add(raw);
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
