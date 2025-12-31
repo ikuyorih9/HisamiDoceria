@@ -1,12 +1,20 @@
 <header>
   <div class="d-flex justify-content-between align-items-center">
-    <div class="d-flex flex-row">
+    <div id="logo" class="d-flex flex-row" [routerLink]="['/home']">
       <img class="selo" src="./assets/images/selo_branco.png" alt="Selo da doceria" />
       <img class="logo" src="./assets/images/logo_branco.png" alt="Logo da doceria" />
     </div>
     <div class="d-flex flex-row justify-content-end align-items-center w-100 gap-3 px-2">
-      <p-button label="Cardápio" icon="pi pi-book" iconPosition="left"> </p-button>
-      <p-button label="Área Restrita" icon="pi pi-user" iconPosition="left"> </p-button>
+      <p-button label="Cardápio" icon="pi pi-book" iconPosition="left" class="menu-button">
+      </p-button>
+      <p-button
+        label="Área Restrita"
+        icon="pi pi-user"
+        iconPosition="left"
+        class="menu-button"
+        [routerLink]="['area-restrita']"
+      >
+      </p-button>
     </div>
   </div>
 </header>

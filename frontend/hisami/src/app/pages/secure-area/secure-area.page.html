@@ -1,0 +1,49 @@
+<div class="d-flex flex-column align-items-center justify-content-center py-2 px-3 gap-3 w-100">
+  <h1 class="background-primary-color font-32 text-center rounded-10 px-3 py-2">
+    Olá {{ employee?.name ?? '' }}
+  </h1>
+  <div class="d-flex flex-row gap-2 w-100">
+    <div class="d-flex flex-column gap-2 w-100">
+      <p-panel header="Cadastrar" class="w-100 h-100">
+        <div class="d-flex flex-column align-items-center gap-2">
+          <p-button
+            *ngIf="role?.canEditMenu"
+            label="Ingredientes"
+            class="w-100"
+            styleClass="w-100"
+            (click)="showRawDialog()"
+          ></p-button>
+          <p-button
+            *ngIf="role?.canEditMenu"
+            label="Produtos"
+            class="w-100"
+            styleClass="w-100"
+            (click)="showProductDialog()"
+          ></p-button>
+          <p-button *ngIf="role?.canSell" label="Venda" class="w-100" styleClass="w-100"></p-button>
+          <p-button
+            *ngIf="role?.canChangeRoles"
+            label="Empregado"
+            class="w-100"
+            styleClass="w-100"
+          ></p-button>
+        </div>
+      </p-panel>
+      <p-panel header="Inventário"> </p-panel>
+    </div>
+    <p-panel header="Finanças do dia" class="w-100"> </p-panel>
+  </div>
+</div>
+
+<app-raw-component
+  *ngIf="isDialogRawVisible"
+  [visible]="isDialogRawVisible"
+  (onClose)="closeRawDialog()"
+></app-raw-component>
+
+<app-product-component
+  *ngIf="isDialogProductVisible"
+  [visible]="isDialogProductVisible"
+  (onClose)="closeProductDialog()"
+>
+</app-product-component>

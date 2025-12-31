@@ -1,3 +1,17 @@
+#logo,
+.menu-button {
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+#logo:hover,
+.menu-button:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
 /* Celulares (até ~576px): manter layout, só reduzir tamanhos */
 @media (max-width: 576px) {
   /* reduz logos sem reorganizar tudo */

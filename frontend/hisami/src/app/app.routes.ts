@@ -3,6 +3,7 @@ import { LoginPage } from './pages/login/login.page';
 import { SignupPage } from './pages/signup/signup.page';
 import { HomePage } from './pages/home/home.page';
 import { SecureAreaPage } from './pages/secure-area/secure-area.page';
+import { AuthGuard } from './misc/auth.guard';
 
 export const routes: Routes = [
   {
@@ -29,5 +30,6 @@ export const routes: Routes = [
     path: 'area-restrita',
     component: SecureAreaPage,
     title: 'Área Restrita',
+    canActivate: [AuthGuard],
   },
 ];
