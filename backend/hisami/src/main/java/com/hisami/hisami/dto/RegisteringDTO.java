@@ -6,6 +6,9 @@ public class RegisteringDTO {
     private ProductDTO product;
     private List<RawQuantityDTO> raws;
 
+    public RegisteringDTO() {
+    }
+
     public RegisteringDTO(ProductDTO product, List<RawQuantityDTO> raws) {
         this.product = product;
         this.raws = raws;
