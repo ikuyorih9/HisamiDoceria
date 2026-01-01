@@ -13,4 +13,6 @@ public interface EntityInterface<T, DTO, Id> {
     public List<T> list();
 
     public void delete(Id id);
+
+    public T edit(Id id, DTO dto);
 }

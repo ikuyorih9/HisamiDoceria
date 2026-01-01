@@ -40,6 +40,37 @@ public class RegisterService {
     }
 
     @Transactional
+    public void editProduct(String barcode, RegisteringDTO dto) {
+        Product product;
+        if (dto.getProduct() != null) {
+            product = this.productService.edit(barcode, dto.getProduct());
+        } else {
+            product = this.productService.find(barcode)
+                    .orElseThrow(() -> new NotFoundException("Produto não registrado."));
+        }
+
+        // Update raws
+        if (dto.getRaws() != null) {
+            System.out.println("DELETING RAWS");
+            // Clean all raws connected to product
+            List<ProductContainRaw> pcrs = this.pcrService.findAllByProduct(barcode);
+            System.out.println("ACTUAL RAWS: " + pcrs.toString());
+            for (ProductContainRaw pcr : pcrs) {
+                this.pcrService.delete(pcr.getProduct(), pcr.getRaw());
+            }
+
+            System.out.println("CREATING NEW RAWS");
+            // Create new raws
+            for (RawQuantityDTO rdto : dto.getRaws()) {
+                Raw raw = this.rawService.find(rdto.getRaw().getName()).orElseThrow(
+                        () -> new NotFoundException("Ingrediente " + rdto.getRaw().getName() + " não foi encontrado"));
+
+                this.pcrService.create(product, raw, rdto.getQuantity());
+            }
+        }
+    }
+
+    @Transactional
     public void deleteRaw(String raw) {
         // Remove every ProductContainRaw
         List<ProductContainRaw> pcrs = this.pcrService.findAllByRaw(raw);
@@ -62,5 +93,9 @@ public class RegisterService {
         }
 
         this.productService.delete(barcode);
+    }
+
+    private Product NotFoundException(String produto_não_registrado) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

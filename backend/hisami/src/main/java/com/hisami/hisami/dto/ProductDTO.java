@@ -13,7 +13,11 @@ public class ProductDTO {
     private Double percentCustPrice;
     private String barcode;
     private String image;
+    private Integer stockQuantity;
     private List<Raw> raws;
+
+    public ProductDTO() {
+    }
 
     public ProductDTO(Long id, String name, String description, Double price, Double cust, Double percentCustPrice,
             String barcode, String image, List<Raw> raws) {
@@ -105,5 +109,13 @@ public class ProductDTO {
         return "ProductDTO [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
                 + ", cust=" + cust + ", percentCustPrice=" + percentCustPrice + ", barcode=" + barcode + ", image="
                 + image + "]";
+    }
+
+    public Integer getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 }

@@ -4,6 +4,9 @@ public class RawQuantityDTO {
     private RawDTO raw;
     private Integer quantity;
 
+    public RawQuantityDTO() {
+    }
+
     public RawQuantityDTO(Integer quantity, RawDTO raw) {
         this.quantity = quantity;
         this.raw = raw;

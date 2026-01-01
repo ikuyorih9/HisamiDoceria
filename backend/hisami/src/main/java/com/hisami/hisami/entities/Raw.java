@@ -21,6 +21,9 @@ public class Raw {
     @Column(name = "cust")
     private Double cust;
 
+    @Column(name = "stock_quantity", nullable = false)
+    private Integer stockQuantity = 0;
+
     @OneToMany(mappedBy = "raw")
     @JsonIgnore
     private Set<ProductContainRaw> products = new HashSet<>();
@@ -69,5 +72,13 @@ public class Raw {
 
     public void setProducts(Set<ProductContainRaw> products) {
         this.products = products;
+    }
+
+    public Integer getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 }

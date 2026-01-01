@@ -42,7 +42,6 @@ public class ApiController {
 
     @PostMapping("/product")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody RegisteringDTO registeringDTO) {
-        System.out.println("REGISTERING DTO: " + registeringDTO);
         this.registerService.registerProduct(registeringDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse(HttpStatus.CREATED.value(), "Produto foi cadastrado com sucesso"));
@@ -54,6 +53,14 @@ public class ApiController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new ApiResponse(HttpStatus.OK.value(), "Produto foi deletado com sucesso"));
+    }
+
+    @PostMapping("/product/{barcode}")
+    public ResponseEntity<ApiResponse> editProduct(@PathVariable String barcode, @RequestBody RegisteringDTO dto) {
+        this.registerService.editProduct(barcode, dto);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ApiResponse(HttpStatus.OK.value(), "Produto foi editado com sucesso"));
     }
 
     // -------------> RAW <----------------
@@ -77,6 +84,14 @@ public class ApiController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new ApiResponse(HttpStatus.OK.value(), "Ingrediente foi deletado com sucesso"));
+    }
+
+    @PostMapping("/raw/{name}")
+    public ResponseEntity<ApiResponse> editRaw(@PathVariable String name, @RequestBody RawDTO dto) {
+        this.rawService.edit(name, dto);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ApiResponse(HttpStatus.OK.value(), "Ingrediente modificado"));
     }
 
 }

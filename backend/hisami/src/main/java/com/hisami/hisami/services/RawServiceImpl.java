@@ -11,8 +11,6 @@ import com.hisami.hisami.exception.EntityAlreadyExistsException;
 import com.hisami.hisami.exception.NotFoundException;
 import com.hisami.hisami.repositories.RawRepository;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class RawServiceImpl implements RawService {
 
@@ -54,5 +52,20 @@ public class RawServiceImpl implements RawService {
                 .orElseThrow(() -> new NotFoundException("Ingrediente não registrado."));
 
         rawRepository.delete(raw);
+    }
+
+    @Override
+    public Raw edit(String id, RawDTO dto) {
+        System.out.println("Receiving... " + dto.toString());
+        Raw raw = this.find(id).orElseThrow(() -> new NotFoundException("Ingrediente não registrado."));
+        if (dto.getCust() != null) {
+            raw.setCust(dto.getCust());
+        }
+
+        if (dto.getStockQuantity() != null) {
+            raw.setStockQuantity(dto.getStockQuantity());
+        }
+
+        return this.rawRepository.save(raw);
     }
 }
