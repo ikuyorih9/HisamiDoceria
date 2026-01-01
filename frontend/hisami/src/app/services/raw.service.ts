@@ -14,4 +14,8 @@ export class RawService {
   public async addRaw(raw: Raw): Promise<Response> {
     return await this.apiService.post<Response, Raw>(this.rawUrl, raw);
   }
+
+  public async deleteRaw(raw: Raw): Promise<Response> {
+    return await this.apiService.delete(`${this.rawUrl}/${raw.name}`);
+  }
 }

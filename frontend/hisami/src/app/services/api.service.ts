@@ -11,7 +11,7 @@ export class ApiService {
     options?: {
       params?: Record<string, string | number | boolean>;
       headers?: Record<string, string>;
-    }
+    },
   ): Promise<T> {
     let params = new HttpParams();
     if (options?.params) {
@@ -36,7 +36,7 @@ export class ApiService {
     options?: {
       params?: Record<string, string | number | boolean>;
       headers?: Record<string, string>;
-    }
+    },
   ): Promise<TResponse> {
     let params = new HttpParams();
     if (options?.params) {
@@ -53,5 +53,32 @@ export class ApiService {
     }
 
     return firstValueFrom(this.http.post<TResponse>(url, body, { params, headers }));
+  }
+
+  public delete<TResponse = void>(
+    url: string,
+    options?: {
+      params?: Record<string, string | number | boolean>;
+      headers?: Record<string, string>;
+      body?: unknown; // opcional (algumas APIs aceitam body no DELETE)
+    },
+  ): Promise<TResponse> {
+    let params = new HttpParams();
+    if (options?.params) {
+      for (const [key, value] of Object.entries(options.params)) {
+        params = params.set(key, String(value));
+      }
+    }
+
+    let headers = new HttpHeaders();
+    if (options?.headers) {
+      for (const [key, value] of Object.entries(options.headers)) {
+        headers = headers.set(key, value);
+      }
+    }
+
+    return firstValueFrom(
+      this.http.delete<TResponse>(url, { params, headers, body: options?.body }),
+    );
   }
 }

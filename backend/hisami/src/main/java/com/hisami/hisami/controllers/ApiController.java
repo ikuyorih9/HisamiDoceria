@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +48,16 @@ public class ApiController {
                 .body(new ApiResponse(HttpStatus.CREATED.value(), "Produto foi cadastrado com sucesso"));
     }
 
+    @DeleteMapping("/product/{barcode}")
+    public ResponseEntity<ApiResponse> deleteProduct(@PathVariable String barcode) {
+        this.registerService.deleteProduct(barcode);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ApiResponse(HttpStatus.OK.value(), "Produto foi deletado com sucesso"));
+    }
+
+    // -------------> RAW <----------------
+
     @GetMapping("/raw")
     public List<Raw> getAllRaws() {
         return this.rawService.list();
@@ -57,6 +69,14 @@ public class ApiController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new ApiResponse(HttpStatus.CREATED.value(), "Ingrediente foi cadastrado com sucesso"));
+    }
+
+    @DeleteMapping("/raw/{name}")
+    public ResponseEntity<ApiResponse> deleteRaw(@PathVariable String name) {
+        this.registerService.deleteRaw(name);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ApiResponse(HttpStatus.OK.value(), "Ingrediente foi deletado com sucesso"));
     }
 
 }

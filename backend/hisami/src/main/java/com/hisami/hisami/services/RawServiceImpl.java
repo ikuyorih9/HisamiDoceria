@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.hisami.hisami.dto.RawDTO;
 import com.hisami.hisami.entities.Raw;
 import com.hisami.hisami.exception.EntityAlreadyExistsException;
+import com.hisami.hisami.exception.NotFoundException;
 import com.hisami.hisami.repositories.RawRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class RawServiceImpl implements RawService {
@@ -43,5 +46,13 @@ public class RawServiceImpl implements RawService {
     @Override
     public List<Raw> list() {
         return this.rawRepository.findAll();
+    }
+
+    @Override
+    public void delete(String name) {
+        Raw raw = rawRepository.findById(name)
+                .orElseThrow(() -> new NotFoundException("Ingrediente não registrado."));
+
+        rawRepository.delete(raw);
     }
 }

@@ -41,6 +41,7 @@ public class SecurityFilterConfiguration {
                                                 .requestMatchers("/auth/**").permitAll()
                                                 .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
+                                                .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form
                                                 .loginPage("/login") // sua página

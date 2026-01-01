@@ -130,6 +130,10 @@ public class Product {
         this.raws.add(raw);
     }
 
+    public void removeRaw(ProductContainRaw raw) {
+        this.raws.remove(raw);
+    }
+
     public byte[] getImage() {
         return image;
     }

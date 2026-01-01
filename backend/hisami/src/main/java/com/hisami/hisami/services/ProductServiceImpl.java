@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hisami.hisami.dto.ProductDTO;
 import com.hisami.hisami.entities.Product;
 import com.hisami.hisami.exception.EntityAlreadyExistsException;
+import com.hisami.hisami.exception.NotFoundException;
 import com.hisami.hisami.repositories.ProductRepository;
 
 @Service
@@ -28,9 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
         // Verify whether object has an image
         if (object.getImage() != null) {
-            System.out.println("Getting base64... " + object.getImage());
             byte[] bytes = Base64.getDecoder().decode(object.getImage());
-            System.out.println("IMAGE: " + bytes);
             Product product = new Product(object.getName(), object.getDescription(), object.getPrice(),
                     object.getCust(), object.getPercentCustPrice(), object.getBarcode(), bytes);
             return productRepository.save(product);
@@ -54,6 +53,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> list() {
         return this.productRepository.findAll();
+    }
+
+    @Override
+    public void delete(String barcode) {
+        Product product = productRepository.findByBarcode(barcode)
+                .orElseThrow(() -> new NotFoundException(
+                        "Produto não foi registrado"));
+        this.productRepository.delete(product);
     }
 
 }

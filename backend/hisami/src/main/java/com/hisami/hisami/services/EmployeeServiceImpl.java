@@ -48,4 +48,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return this.employeeRepository.findByCpf(cpf).isPresent();
     }
 
+    @Override
+    public void delete(String id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
