@@ -13,8 +13,17 @@ export class ProductService {
     return await this.apiService.get(this.productUrl);
   }
 
-  public async addRaw(product: Product): Promise<Response> {
-    return await this.apiService.post<Response, Product>(this.productUrl, product);
+  public productRegistering(product: Product): Promise<Response> {
+    const registering: Registering = {
+      product: product,
+      raws: product.raws,
+    };
+
+    return this.apiService.post<Response>(this.productUrl, registering);
+  }
+
+  public async deleteProduct(product: Product): Promise<Response> {
+    return await this.apiService.delete(`${this.productUrl}/${product.barcode}`);
   }
 
   public calculateCust(raws: RawQuantity[]): number {
@@ -28,14 +37,5 @@ export class ProductService {
   public calculatePrice(cust: number, custPerPricePercent: number): number {
     if (cust == 0) return 0;
     return cust / (custPerPricePercent / 100);
-  }
-
-  public productRegistering(product: Product): Promise<Response> {
-    const registering: Registering = {
-      product: product,
-      raws: product.raws,
-    };
-
-    return this.apiService.post<Response>(this.productUrl, registering);
   }
 }

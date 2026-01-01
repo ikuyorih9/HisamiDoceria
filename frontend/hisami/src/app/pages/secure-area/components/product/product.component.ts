@@ -17,6 +17,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { RawService } from '../../../../services/raw.service';
 import { Product } from '../../../../models/product.model';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-product-component',
@@ -32,7 +35,10 @@ import { InputTextModule } from 'primeng/inputtext';
     InputNumberModule,
     MultiSelectModule,
     InputTextModule,
+    ConfirmDialogModule,
+    ToastModule,
   ],
+  providers: [ConfirmationService, MessageService],
 })
 export class ProductComponent implements OnInit {
   @Input() visible: boolean = false;
@@ -49,6 +55,7 @@ export class ProductComponent implements OnInit {
     private productService: ProductService,
     private rawService: RawService,
     private fb: FormBuilder,
+    private confirmationService: ConfirmationService,
   ) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -62,7 +69,7 @@ export class ProductComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.products = await this.refresh();
+    await this.refresh();
     console.log('Products: ', this.products);
     const raws = await this.rawService.getAllRaws();
     this.rawOptions = raws.map((raw) => {
@@ -74,7 +81,8 @@ export class ProductComponent implements OnInit {
   }
 
   public async refresh() {
-    return await this.productService.getProducts();
+    const data = await this.productService.getProducts();
+    this.products = [...data];
   }
 
   public close() {
@@ -119,7 +127,7 @@ export class ProductComponent implements OnInit {
     product.image = this.imageBase64; // string base64
     const response = await this.productService.productRegistering(product);
     alert(response.text);
-    this.refresh();
+    await this.refresh();
     this.closeAddModal();
   }
 
@@ -155,6 +163,26 @@ export class ProductComponent implements OnInit {
       this.imageBase64 = full.split(',')[1]; // pega só o base64 puro
     };
     reader.readAsDataURL(file);
+  }
+
+  public async deleteProduct(event: Event, product: Product) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Você deseja mesmo deletar o produto?',
+      header: 'Deletar produto',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      acceptButtonProps: {
+        label: 'Confirmar',
+      },
+      rejectVisible: false,
+      accept: async () => {
+        await this.productService.deleteProduct(product);
+        await this.refresh();
+      },
+      reject: () => {},
+    });
   }
 
   get selectedRaws(): any[] {

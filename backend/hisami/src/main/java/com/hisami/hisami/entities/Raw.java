@@ -63,6 +63,10 @@ public class Raw {
         this.products.add(pcr);
     }
 
+    public void removeProduct(ProductContainRaw pcr) {
+        this.products.remove(pcr);
+    }
+
     public void setProducts(Set<ProductContainRaw> products) {
         this.products = products;
     }

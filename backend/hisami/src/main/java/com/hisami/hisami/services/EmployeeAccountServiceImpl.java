@@ -67,4 +67,9 @@ public class EmployeeAccountServiceImpl implements EmployeeAccountService {
         return account.getRole();
     }
 
+    @Override
+    public void delete(String id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

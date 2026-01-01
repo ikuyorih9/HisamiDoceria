@@ -11,4 +11,6 @@ public interface EntityInterface<T, DTO, Id> {
     public boolean exists(Id id);
 
     public List<T> list();
+
+    public void delete(Id id);
 }

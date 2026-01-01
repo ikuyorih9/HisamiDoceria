@@ -7,7 +7,12 @@
       <ng-template pTemplate="title">
         <div class="d-flex flex-row justify-content-between">
           {{ product.name }}
-          <p-button icon="pi pi-trash" [rounded]="true" (click)="close()" class="trash-button" />
+          <p-button
+            icon="pi pi-trash"
+            [rounded]="true"
+            (click)="deleteProduct($event, product)"
+            class="trash-button"
+          />
         </div>
       </ng-template>
       <div>Custo: {{ product.cust | number: '1.2-2' }} R$</div>
@@ -127,3 +132,6 @@
       ></button></div
   ></ng-template>
 </p-dialog>
+
+<p-toast />
+<p-confirmdialog />
