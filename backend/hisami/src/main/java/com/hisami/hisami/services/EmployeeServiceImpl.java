@@ -19,7 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployees() {
+    public List<Employee> list() {
         return employeeRepository.findAll();
     }
 
@@ -46,6 +46,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public boolean exists(String cpf) {
         return this.employeeRepository.findByCpf(cpf).isPresent();
+    }
+
+    @Override
+    public void delete(String id) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

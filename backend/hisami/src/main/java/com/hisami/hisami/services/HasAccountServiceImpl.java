@@ -27,4 +27,9 @@ public class HasAccountServiceImpl implements HasAccountService {
         return hasAccountRepository.save(hasAccount);
     }
 
+    @Override
+    public HasAccount findByAccount(String username) {
+        return this.hasAccountRepository.findAllByAccountUsernameWithEmployee(username).getLast();
+    }
+
 }

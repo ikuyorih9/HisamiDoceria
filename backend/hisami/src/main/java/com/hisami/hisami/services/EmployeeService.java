@@ -5,13 +5,8 @@ import java.util.Optional;
 
 import com.hisami.hisami.dto.EmployeeDTO;
 import com.hisami.hisami.entities.Employee;
+import com.hisami.hisami.interfaces.EntityInterface;
 
-public interface EmployeeService {
-    public List<Employee> getEmployees();
+public interface EmployeeService extends EntityInterface<Employee, EmployeeDTO, String> {
 
-    public Optional<Employee> find(String cpf);
-
-    public Employee create(EmployeeDTO dto);
-
-    public boolean exists(String cpf);
 }

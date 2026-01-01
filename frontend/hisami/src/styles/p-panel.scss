@@ -1,0 +1,15 @@
+p-panel {
+  background-color: var(--secundary-color) !important;
+  border: none !important;
+  padding: 8px 12px;
+}
+
+.p-panel-header {
+  padding: 8px 0px !important;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--secundary-color-dark) !important;
+}
+
+.p-panel-content {
+  padding: 0px !important;
+}

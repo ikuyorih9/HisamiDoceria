@@ -1,0 +1,106 @@
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" (onHide)="close()">
+  <ng-template #header>
+    <p>Ingrediente</p>
+  </ng-template>
+  <div class="d-flex flex-column align-items-center gap-3">
+    <p-card *ngFor="let raw of raws" styleClass="w-100">
+      <ng-template pTemplate="title">
+        <div class="d-flex flex-row justify-content-between">
+          {{ raw.name }}
+          <p-button
+            icon="pi pi-trash"
+            [rounded]="true"
+            (click)="deleteRaw($event, raw)"
+            class="trash-button"
+          />
+        </div>
+      </ng-template>
+      <div>Custo: {{ raw.cust | number: '1.2-2' }} R$</div>
+    </p-card>
+  </div>
+  <ng-template #footer>
+    <p-button
+      icon="pi pi-plus"
+      [text]="true"
+      [rounded]="true"
+      (click)="openAddModal()"
+      class="add-button"
+    />
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isAddVisible"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  (onHide)="closeAddModal()"
+>
+  <ng-template #header>
+    <p>Cadastrar ingrediente</p>
+  </ng-template>
+  <form
+    [formGroup]="rawForm"
+    (ngSubmit)="submit()"
+    class="d-flex flex-column align-items-center gap-3"
+  >
+    <div class="d-flex flex-column gap-2 w-100" style="max-width: 420px">
+      <label for="name">Nome</label>
+      <input
+        id="name"
+        type="text"
+        class="form-control"
+        placeholder="Nome do ingrediente"
+        formControlName="name"
+      />
+
+      <small
+        class="text-danger"
+        *ngIf="rawForm.get('name')?.touched && rawForm.get('name')?.invalid"
+      >
+        Nome é obrigatório.
+      </small>
+    </div>
+
+    <div class="d-flex flex-column gap-2 w-100" style="max-width: 420px">
+      <label for="cust">Custo (R$)</label>
+      <input
+        id="cust"
+        type="number"
+        class="form-control"
+        placeholder="0.00"
+        formControlName="cust"
+        step="0.01"
+        min="0.01"
+      />
+
+      <small
+        class="text-danger"
+        *ngIf="rawForm.get('cust')?.touched && rawForm.get('cust')?.invalid"
+      >
+        Custo é obrigatório e deve ser maior que 0.
+      </small>
+    </div>
+  </form>
+
+  <ng-template #footer>
+    <div class="d-flex gap-2">
+      <button
+        pButton
+        type="submit"
+        label="Salvar"
+        [disabled]="rawForm.invalid"
+        (click)="submit()"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        class="p-button-secondary"
+        (click)="closeAddModal()"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-toast />
+<p-confirmdialog />
