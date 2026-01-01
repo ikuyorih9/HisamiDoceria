@@ -51,6 +51,8 @@ export class ProductComponent implements OnInit {
 
   public imageBase64: string | null = null; // sem o prefixo "data:image/..;base64,"
 
+  public selectedFileName: String = '';
+
   constructor(
     private productService: ProductService,
     private rawService: RawService,
@@ -156,6 +158,7 @@ export class ProductComponent implements OnInit {
     if (!input.files || input.files.length === 0) return;
 
     const file = input.files[0];
+    this.selectedFileName = file?.name ?? '';
 
     const reader = new FileReader();
     reader.onload = () => {
