@@ -72,4 +72,10 @@ public class EmployeeAccountServiceImpl implements EmployeeAccountService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public EmployeeAccount edit(String id, EmployeeDTO dto) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'edit'");
+    }
+
 }

@@ -63,4 +63,51 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository.delete(product);
     }
 
+    @Override
+    public Product edit(String barcode, ProductDTO dto) {
+
+        Product product = this.find(barcode).orElseThrow(() -> new NotFoundException("Produto não registrado."));
+        if (dto.getName() != null) {
+            product.setName(dto.getName());
+        }
+
+        if (dto.getDescription() != null) {
+            product.setDescription(dto.getDescription());
+        }
+
+        if (dto.getPrice() != null) {
+            product.setPrice(dto.getPrice());
+        }
+
+        if (dto.getCust() != null) {
+            product.setCust(dto.getCust());
+        }
+
+        if (dto.getPercentCustPrice() != null) {
+            product.setPercentCustPrice(dto.getPercentCustPrice());
+        }
+
+        if (dto.getBarcode() != null) {
+            product.setBarcode(dto.getBarcode());
+        }
+
+        if (dto.getImage() != null) {
+            String img = dto.getImage();
+
+            // se vier como data URL: "data:image/png;base64,AAAA"
+            if (img.startsWith("data:")) {
+                img = img.substring(img.indexOf(",") + 1);
+            }
+
+            byte[] bytes = Base64.getDecoder().decode(img);
+            product.setImage(bytes);
+        }
+
+        if (dto.getStockQuantity() != null) {
+            product.setStockQuantity(dto.getStockQuantity());
+        }
+
+        return product;
+    }
+
 }

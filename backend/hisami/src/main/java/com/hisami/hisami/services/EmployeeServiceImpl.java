@@ -53,4 +53,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public Employee edit(String id, EmployeeDTO dto) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

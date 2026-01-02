@@ -29,7 +29,38 @@
           ></p-button>
         </div>
       </p-panel>
-      <p-panel header="Inventário"> </p-panel>
+      <div class="inventory-panels">
+        <p-panel class="w-100">
+          <ng-template pTemplate="header">
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <span><strong>Inventário de produtos</strong></span>
+              <p-button
+                icon="pi pi-pencil"
+                rounded="true"
+                class="edit-button"
+                (click)="changeStockProductEditable()"
+              ></p-button>
+            </div>
+          </ng-template>
+          <app-stock-product-component
+            [isEditable]="isStockProductEditable"
+          ></app-stock-product-component>
+        </p-panel>
+        <p-panel class="w-100">
+          <ng-template pTemplate="header">
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <span><strong>Inventário de ingredientes</strong></span>
+              <p-button
+                icon="pi pi-pencil"
+                rounded="true"
+                class="edit-button"
+                (click)="changeStockRawEditable()"
+              ></p-button>
+            </div>
+          </ng-template>
+          <app-stock-raw-component [isEditable]="isStockRawEditable"></app-stock-raw-component
+        ></p-panel>
+      </div>
     </div>
     <p-panel header="Finanças do dia" class="w-100"> </p-panel>
   </div>

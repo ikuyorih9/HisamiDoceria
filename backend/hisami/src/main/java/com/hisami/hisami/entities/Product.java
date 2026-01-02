@@ -39,6 +39,9 @@ public class Product {
     @Column(name = "barcode", length = 32, nullable = false, unique = true)
     private String barcode;
 
+    @Column(name = "stock_quantity", nullable = false)
+    private Integer stockQuantity = 0;
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "image")
@@ -140,5 +143,13 @@ public class Product {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public Integer getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 }
