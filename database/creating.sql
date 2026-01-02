@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS NEW_ORDER (
     product_id INTEGER NOT NULL,
     date_time TIMESTAMP NOT NULL,
     date_time_close TIMESTAMP,
+    isPaid BOOLEAN,
     CONSTRAINT PK_NEW_ORDER PRIMARY KEY (
         customer_id,
         product_id,
