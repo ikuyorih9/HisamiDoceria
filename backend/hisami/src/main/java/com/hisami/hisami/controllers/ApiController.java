@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hisami.hisami.dto.ApiResponse;
 import com.hisami.hisami.dto.RawDTO;
 import com.hisami.hisami.dto.RegisteringDTO;
+import com.hisami.hisami.dto.SellDTO;
 import com.hisami.hisami.entities.Product;
 import com.hisami.hisami.entities.Raw;
 import com.hisami.hisami.services.ProductService;
 import com.hisami.hisami.services.RawService;
 import com.hisami.hisami.services.RegisterService;
+import com.hisami.hisami.services.SellService;
 
 @RestController
 @RequestMapping("/api")
@@ -28,11 +30,14 @@ public class ApiController {
     private final RegisterService registerService;
     private final ProductService productService;
     private final RawService rawService;
+    private final SellService sellService;
 
-    public ApiController(RegisterService registerService, ProductService productService, RawService rawService) {
+    public ApiController(RegisterService registerService, ProductService productService, RawService rawService,
+            SellService sellService) {
         this.registerService = registerService;
         this.productService = productService;
         this.rawService = rawService;
+        this.sellService = sellService;
     }
 
     @GetMapping("/product")
@@ -94,4 +99,13 @@ public class ApiController {
                 .body(new ApiResponse(HttpStatus.OK.value(), "Ingrediente modificado"));
     }
 
+    // ------------> SELL <-------------
+
+    @PostMapping("/sell")
+    public ResponseEntity<ApiResponse> sellProduct(@RequestBody SellDTO dto) {
+        this.sellService.create(dto);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new ApiResponse(HttpStatus.CREATED.value(), "Venda registrada."));
+    }
 }

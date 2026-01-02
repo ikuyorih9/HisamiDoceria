@@ -44,7 +44,7 @@ public class Product {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Column(name = "image")
+    @Column(name = "image", columnDefinition = "bytea")
     private byte[] image;
 
     @OneToMany(mappedBy = "product")
