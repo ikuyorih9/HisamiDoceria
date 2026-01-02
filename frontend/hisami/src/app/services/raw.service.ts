@@ -18,4 +18,8 @@ export class RawService {
   public async deleteRaw(raw: Raw): Promise<Response> {
     return await this.apiService.delete(`${this.rawUrl}/${raw.name}`);
   }
+
+  public async editRaw(raw: Raw) {
+    return await this.apiService.post<Response>(`${this.rawUrl}/${raw.name}`, raw);
+  }
 }

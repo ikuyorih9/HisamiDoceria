@@ -14,4 +14,5 @@ export interface Product {
   barcode: string;
   image: string | null;
   raws: RawQuantity[];
+  stockQuantity: number;
 }
