@@ -10,12 +10,23 @@ import { RawComponent } from './components/raw/raw.component';
 import { ProductComponent } from './components/product/product.component';
 import { Role } from '../../models/role.model';
 import { EmployeeService } from '../../services/employee.service';
+import { StockProductComponent } from './components/stock-product/stock-product.component';
+import { StockRawComponent } from './components/stock-raw/stock-raw.component';
 
 @Component({
   selector: 'app-secure-area',
   templateUrl: '/secure-area.page.html',
   styleUrl: '/secure-area.page.scss',
-  imports: [CommonModule, PanelModule, ButtonModule, DialogModule, RawComponent, ProductComponent],
+  imports: [
+    CommonModule,
+    PanelModule,
+    ButtonModule,
+    DialogModule,
+    RawComponent,
+    ProductComponent,
+    StockProductComponent,
+    StockRawComponent,
+  ],
 })
 export class SecureAreaPage implements OnInit {
   private readonly userInfoUrl = 'http://localhost:8080/auth/me';
@@ -25,6 +36,8 @@ export class SecureAreaPage implements OnInit {
   public role: Role | null = null;
   public isDialogRawVisible: boolean = false;
   public isDialogProductVisible: boolean = false;
+  public isStockProductEditable: boolean = false;
+  public isStockRawEditable: boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -53,5 +66,13 @@ export class SecureAreaPage implements OnInit {
 
   public closeProductDialog() {
     this.isDialogProductVisible = false;
+  }
+
+  public changeStockProductEditable() {
+    this.isStockProductEditable = !this.isStockProductEditable;
+  }
+
+  public changeStockRawEditable() {
+    this.isStockRawEditable = !this.isStockRawEditable;
   }
 }

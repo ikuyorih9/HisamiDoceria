@@ -1,0 +1,13 @@
+<div *ngFor="let raw of raws" class="d-flex flex-column">
+  <div class="d-flex justify-content-between align-items-center py-1">
+    <span>{{ raw.name }}</span>
+    <p-inputNumber
+      styleClass="qty"
+      [min]="0"
+      [(ngModel)]="raw.stockQuantity"
+      [showButtons]="isEditable"
+      [readonly]="!isEditable"
+      (ngModelChange)="update(raw)"
+    ></p-inputNumber>
+  </div>
+</div>

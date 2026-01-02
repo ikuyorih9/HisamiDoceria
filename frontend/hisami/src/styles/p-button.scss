@@ -24,7 +24,7 @@ p-button {
 }
 p-button:hover {
   opacity: 0.85;
-  transform: scale(1.05) !important;
+  transform: scale(1.02) !important;
 }
 
 .p-dialog-close-button {
@@ -47,4 +47,14 @@ p-button:hover {
 .trash-button .p-button-icon {
   font-size: 16px !important;
   color: red !important;
+}
+
+.edit-button .p-button-icon-only.p-button-rounded {
+  height: 24px !important;
+  width: 24px !important;
+  background-color: transparent !important;
+}
+
+.edit-button .p-button-icon {
+  font-size: 16px !important;
 }

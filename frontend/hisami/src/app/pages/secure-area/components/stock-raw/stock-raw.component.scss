@@ -1,0 +1,24 @@
+::ng-deep .qty {
+  width: 30% !important; /* wrapper */
+}
+::ng-deep .qty input {
+  width: 100% !important; /* input ocupa o wrapper */
+}
+
+@media (max-width: 768px) {
+  :host ::ng-deep .qty {
+    width: 4.5rem; /* controla o bloco todo */
+  }
+
+  :host ::ng-deep .qty .p-inputtext {
+    width: 1.5rem !important; /* só o input */
+    height: 2.25rem !important;
+    padding: 0 0.5rem !important;
+    line-height: 2.25rem !important;
+  }
+
+  :host ::ng-deep .qty .p-inputnumber-button {
+    width: 2rem !important;
+    height: 1.125rem !important; /* metade da altura */
+  }
+}

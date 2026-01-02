@@ -26,6 +26,15 @@ export class ProductService {
     return await this.apiService.delete(`${this.productUrl}/${product.barcode}`);
   }
 
+  public async editProduct(product: Product): Promise<Response> {
+    const registering: Registering = {
+      product: product,
+      raws: product.raws,
+    };
+    console.log('Sending: ', registering);
+    return this.apiService.post<Response>(`${this.productUrl}/${product.barcode}`, registering);
+  }
+
   public calculateCust(raws: RawQuantity[]): number {
     let cust = 0;
     raws.forEach((raw) => {
