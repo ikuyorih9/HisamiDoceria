@@ -6,6 +6,7 @@ public class SellDTO {
     String cpf;
     String barcode;
     LocalDateTime dateTime;
+    Integer quantity;
 
     public SellDTO() {
     }
@@ -38,6 +39,14 @@ public class SellDTO {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
 }
