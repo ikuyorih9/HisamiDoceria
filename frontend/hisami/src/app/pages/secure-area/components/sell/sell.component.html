@@ -1,0 +1,95 @@
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" (onHide)="close()">
+  <ng-template #header>
+    <p>Vendas</p>
+  </ng-template>
+  <div class="d-flex flex-column align-items-center gap-3">
+    <p-card *ngFor="let group of groupedSells" styleClass="w-100">
+      <ng-template pTemplate="title">
+        <div class="d-flex flex-row justify-content-between">
+          <span>{{ group.dateTime | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          <span>{{ group.total | number: '1.2-2' }} R$</span>
+        </div>
+      </ng-template>
+
+      <div class="d-flex flex-column gap-2">
+        <div *ngFor="let sell of group.items" class="d-flex justify-content-between">
+          <span
+            >{{ sell.product.name }} <span *ngIf="sell.quantity">x{{ sell.quantity }}</span></span
+          >
+          <span>{{ sell.product.price * (sell.quantity ?? 1) | number: '1.2-2' }} R$</span>
+        </div>
+      </div>
+    </p-card>
+  </div>
+  <ng-template #footer>
+    <p-button
+      [label]="'Encomenda'"
+      [text]="true"
+      [rounded]="true"
+      [disabled]="true"
+      (click)="openAddModal()"
+      class="button-font-16"
+    />
+    <p-button
+      [label]="'Pronta-entrega'"
+      [text]="true"
+      [rounded]="true"
+      (click)="openAddModal()"
+      class="button-font-16"
+    />
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isAddVisible"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  (onHide)="closeAddModal()"
+>
+  <ng-template #header>
+    <p>Cadastrar venda</p>
+  </ng-template>
+  <div class="d-flex flex-column align-items-start w-100 gap-1">
+    <label for="raws"> Produtos</label>
+    <p-multiselect
+      [options]="products"
+      [optionLabel]="'name'"
+      [maxSelectedLabels]="2"
+      class="w-100"
+      id="raws"
+      appendTo="body"
+      (onChange)="onSelected($event)"
+    ></p-multiselect>
+    <!-- <small class="p-error" *ngIf="isInvalid('raws')"
+        >É preciso ter ao menos um ingrediente no produto.</small
+      > -->
+  </div>
+
+  <div
+    *ngFor="let item of selectedProducts; let i = index"
+    class="d-flex flex-row justify-content-between align-items-center py-2 gap-3 w-100"
+    (mousedown)="$event.stopPropagation()"
+    (click)="$event.stopPropagation()"
+  >
+    <p class="m-0">{{ item.product.name }}</p>
+    <p-inputNumber
+      styleClass="qty"
+      [min]="1"
+      [(ngModel)]="item.quantity"
+      [showButtons]="true"
+    ></p-inputNumber>
+  </div>
+
+  <div class="border-top mt-2 pt-2 d-flex justify-content-between">
+    <span>Total</span>
+    <span> {{ totalPrice | number: '1.2-2' }} R$ </span>
+  </div>
+  <ng-template #footer>
+    <p-button
+      [label]="'Confirmar'"
+      [text]="true"
+      (click)="registerSells()"
+      class="button-font-16"
+    />
+  </ng-template>
+</p-dialog>

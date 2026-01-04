@@ -12,6 +12,7 @@ import { Role } from '../../models/role.model';
 import { EmployeeService } from '../../services/employee.service';
 import { StockProductComponent } from './components/stock-product/stock-product.component';
 import { StockRawComponent } from './components/stock-raw/stock-raw.component';
+import { SellComponent } from './components/sell/sell.component';
 
 @Component({
   selector: 'app-secure-area',
@@ -26,6 +27,7 @@ import { StockRawComponent } from './components/stock-raw/stock-raw.component';
     ProductComponent,
     StockProductComponent,
     StockRawComponent,
+    SellComponent,
   ],
 })
 export class SecureAreaPage implements OnInit {
@@ -36,6 +38,7 @@ export class SecureAreaPage implements OnInit {
   public role: Role | null = null;
   public isDialogRawVisible: boolean = false;
   public isDialogProductVisible: boolean = false;
+  public isDialogSellVisible: boolean = false;
   public isStockProductEditable: boolean = false;
   public isStockRawEditable: boolean = false;
 
@@ -66,6 +69,14 @@ export class SecureAreaPage implements OnInit {
 
   public closeProductDialog() {
     this.isDialogProductVisible = false;
+  }
+
+  public async showSellDialog() {
+    this.isDialogSellVisible = true;
+  }
+
+  public closeSellDialog() {
+    this.isDialogSellVisible = false;
   }
 
   public changeStockProductEditable() {
