@@ -20,7 +20,13 @@
             styleClass="w-100"
             (click)="showProductDialog()"
           ></p-button>
-          <p-button *ngIf="role?.canSell" label="Venda" class="w-100" styleClass="w-100"></p-button>
+          <p-button
+            *ngIf="role?.canSell"
+            label="Venda"
+            class="w-100"
+            styleClass="w-100"
+            (click)="showSellDialog()"
+          ></p-button>
           <p-button
             *ngIf="role?.canChangeRoles"
             label="Empregado"
@@ -78,3 +84,9 @@
   (onClose)="closeProductDialog()"
 >
 </app-product-component>
+
+<app-sell-component
+  *ngIf="isDialogSellVisible"
+  [visible]="isDialogSellVisible"
+  (onClose)="closeSellDialog()"
+></app-sell-component>

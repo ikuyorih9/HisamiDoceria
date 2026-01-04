@@ -20,6 +20,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogBase } from '../../interfaces/dialog.interface';
 
 @Component({
   selector: 'app-product-component',
@@ -40,14 +41,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   ],
   providers: [ConfirmationService, MessageService],
 })
-export class ProductComponent implements OnInit {
-  @Input() visible: boolean = false;
-  @Output() onClose = new EventEmitter<void>();
-
+export class ProductComponent extends DialogBase implements OnInit {
   public rawOptions: RawQuantity[] = [];
   public form!: FormGroup;
   public products: Product[] = [];
-  public isAddVisible = false;
 
   public imageBase64: string | null = null; // sem o prefixo "data:image/..;base64,"
 
@@ -59,6 +56,7 @@ export class ProductComponent implements OnInit {
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
   ) {
+    super();
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       description: [''],
@@ -87,16 +85,7 @@ export class ProductComponent implements OnInit {
     this.products = [...data];
   }
 
-  public close() {
-    this.onClose.emit();
-  }
-
-  public openAddModal() {
-    this.isAddVisible = true;
-  }
-
-  public closeAddModal() {
-    this.isAddVisible = false;
+  protected override onCloseAddModal(): void {
     this.resetForm();
   }
 
