@@ -18,6 +18,7 @@ import com.hisami.hisami.dto.RegisteringDTO;
 import com.hisami.hisami.dto.SellDTO;
 import com.hisami.hisami.entities.Product;
 import com.hisami.hisami.entities.Raw;
+import com.hisami.hisami.entities.Sell;
 import com.hisami.hisami.services.ProductService;
 import com.hisami.hisami.services.RawService;
 import com.hisami.hisami.services.RegisterService;
@@ -100,6 +101,11 @@ public class ApiController {
     }
 
     // ------------> SELL <-------------
+
+    @GetMapping("/sell")
+    public List<Sell> getSells() {
+        return this.sellService.list();
+    }
 
     @PostMapping("/sell")
     public ResponseEntity<ApiResponse> sellProduct(@RequestBody SellDTO dto) {

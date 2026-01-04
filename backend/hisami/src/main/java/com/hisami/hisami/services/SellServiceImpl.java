@@ -40,7 +40,7 @@ public class SellServiceImpl implements SellService {
         Product product = this.productService.find(object.getBarcode())
                 .orElseThrow(() -> new NotFoundException("Produto não registrado."));
 
-        Sell sell = new Sell(employee, product, LocalDateTime.now());
+        Sell sell = new Sell(employee, product, LocalDateTime.now(), object.getQuantity());
         return this.sellRepository.save(sell);
     }
 
