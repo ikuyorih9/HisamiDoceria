@@ -1,6 +1,7 @@
 package com.hisami.hisami.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,15 +14,15 @@ import com.hisami.hisami.entities.HasAccountId;
 
 @Repository
 public interface HasAccountRepository extends JpaRepository<HasAccount, HasAccountId> {
-    List<HasAccount> findByAccount(EmployeeAccount account);
+  List<HasAccount> findByAccount(EmployeeAccount account);
 
-    @Query("""
-              select ha
-              from HasAccount ha
-              join fetch ha.employee e
-              where ha.account.username = :username
-            """)
-    List<HasAccount> findAllByAccountUsernameWithEmployee(@Param("username") String username);
+  @Query("""
+        select ha
+        from HasAccount ha
+        join fetch ha.employee e
+        where ha.account.username = :username
+      """)
+  Optional<HasAccount> findAllByAccountUsernameWithEmployee(@Param("username") String username);
 
-    List<HasAccount> findByAccountUsername(String username);
+  List<HasAccount> findByAccountUsername(String username);
 }

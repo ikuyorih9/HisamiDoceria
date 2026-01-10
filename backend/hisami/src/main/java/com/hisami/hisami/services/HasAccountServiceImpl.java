@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.hisami.hisami.entities.Employee;
 import com.hisami.hisami.entities.EmployeeAccount;
 import com.hisami.hisami.entities.HasAccount;
+import com.hisami.hisami.exception.NotFoundException;
 import com.hisami.hisami.repositories.HasAccountRepository;
 
 @Service
@@ -29,7 +30,8 @@ public class HasAccountServiceImpl implements HasAccountService {
 
     @Override
     public HasAccount findByAccount(String username) {
-        return this.hasAccountRepository.findAllByAccountUsernameWithEmployee(username).getLast();
+        return this.hasAccountRepository.findAllByAccountUsernameWithEmployee(username)
+                .orElseThrow(() -> new NotFoundException("Conta não encontrada para o username " + username));
     }
 
 }
