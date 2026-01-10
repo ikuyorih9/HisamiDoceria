@@ -4,6 +4,7 @@ import { SignupPage } from './pages/signup/signup.page';
 import { HomePage } from './pages/home/home.page';
 import { SecureAreaPage } from './pages/secure-area/secure-area.page';
 import { AuthGuard } from './misc/auth.guard';
+import { MenuPage } from './pages/menu/menu.page';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,11 @@ export const routes: Routes = [
     path: 'home',
     component: HomePage,
     title: 'Home',
+  },
+  {
+    path: 'menu',
+    component: MenuPage,
+    title: 'Cardápio',
   },
   {
     path: 'area-restrita',

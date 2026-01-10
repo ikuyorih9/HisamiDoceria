@@ -1,0 +1,32 @@
+<div class="text-center mx-3 dashed-bottom-line">
+  <h1 class="font-secundary-color py-2">Cardápio</h1>
+</div>
+
+<div class="row g-3 p-3">
+  <div *ngFor="let product of products" class="col-12 col-md-6">
+    <p-card class="card-body">
+      <ng-template #header>
+        <div class="card-header">
+          <h2 class="m-0">{{ product.name }}</h2>
+        </div>
+      </ng-template>
+
+      <div class="d-flex justify-content-between gap-4">
+        <div id="card-image">
+          <img
+            *ngIf="product.image"
+            class="image"
+            [src]="'data:image/png;base64,' + product.image"
+            alt="Imagem do produto"
+          />
+        </div>
+        <div id="card-text" class="d-flex flex-column justify-content-between w-100">
+          <span class="font-secundary-color">{{ product.description }}</span>
+          <div class="d-flex justify-content-end">
+            <span class="card-footer">R$ {{ product.price | number: '1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
