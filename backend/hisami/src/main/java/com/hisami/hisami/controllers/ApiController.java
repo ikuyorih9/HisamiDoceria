@@ -55,6 +55,13 @@ public class ApiController {
 
     @DeleteMapping("/product/{barcode}")
     public ResponseEntity<ApiResponse> deleteProduct(@PathVariable String barcode) {
+        // DELETE ALL SELLS
+        List<Sell> sells = this.sellService.getSellByProduct(barcode);
+        for (Sell sell : sells) {
+            this.sellService.delete(sell.getId()); // ou sell.getSellId(), conforme o nome do campo
+        }
+
+        // DELETE PRODUCT
         this.registerService.deleteProduct(barcode);
         return ResponseEntity
                 .status(HttpStatus.OK)
