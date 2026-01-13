@@ -1,0 +1,37 @@
+::ng-deep .card-body {
+  background-color: white !important;
+  border: 2px solid var(--secundary-color);
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.52);
+}
+
+.card-header {
+  background-color: var(--secundary-color);
+  border-top: 8px;
+  padding: 2px 8px;
+}
+
+.card-footer {
+  color: var(--secundary-color);
+  font-weight: 600;
+}
+
+.image {
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+}
+
+.dashed-bottom-line {
+  border: 0;
+  border-bottom: 2px dashed #999; /* cor e espessura */
+  margin: 16px 0;
+}
+
+@media (min-width: 768px) {
+  .image {
+    width: 220px; /* ajuste como quiser */
+    height: 220px;
+  }
+}

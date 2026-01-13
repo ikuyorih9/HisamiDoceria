@@ -13,6 +13,7 @@
 @import 'styles/p-panel.scss';
 @import 'styles/p-button.scss';
 @import 'styles/p-inputNumber.scss';
+@import 'styles/p-card.scss';
 
 :root {
   //  COLORS
@@ -20,7 +21,6 @@
   --primary-color-dark: #e69b99;
   --secundary-color: #96af8c;
   --secundary-color-dark: #80916c;
-
   --header-background-color: var(--secundary-color-dark);
 
   --background-color: var(--primary-color);

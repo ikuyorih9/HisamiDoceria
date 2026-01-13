@@ -3,6 +3,9 @@ package com.hisami.hisami.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Basic;
@@ -12,7 +15,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -42,9 +44,9 @@ public class Product {
     @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity = 0;
 
-    @Lob
+    @JdbcTypeCode(SqlTypes.VARBINARY) // força bytea no Postgres
     @Basic(fetch = FetchType.LAZY)
-    @Column(name = "image", columnDefinition = "bytea")
+    @Column(name = "image")
     private byte[] image;
 
     @OneToMany(mappedBy = "product")

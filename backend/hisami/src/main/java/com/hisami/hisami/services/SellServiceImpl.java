@@ -68,6 +68,11 @@ public class SellServiceImpl implements SellService {
     }
 
     @Override
+    public List<Sell> getSellByProduct(String barcode) {
+        return this.sellRepository.findAllByProductBarcode(barcode);
+    }
+
+    @Override
     public Sell edit(SellId id, SellDTO dto) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'edit'");
